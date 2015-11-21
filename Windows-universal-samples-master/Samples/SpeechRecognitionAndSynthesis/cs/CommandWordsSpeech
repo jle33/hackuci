@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
+  <CommandSet xml:lang="en-US">
+    <CommandPrefix>Contoso Rodeo</CommandPrefix>
+    <Example> play a new game </Example>
+
+    <Command Name="OrderBurger">
+      <Example> play a new game </Example>
+      <ListenFor> Burger </ListenFor>
+      <Feedback> Ordering burger </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="OrderSoda">
+      <Example> play a new game </Example>
+      <ListenFor> Soda </ListenFor>
+      <Feedback> Ordering a soda </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="OrderFries">
+      <Example> play a new game </Example>
+      <ListenFor> Fries </ListenFor>
+      <Feedback> Ordering some fries </Feedback>
+      <Navigate />
+    </Command>
+	
+  </CommandSet>
+</VoiceCommands>
