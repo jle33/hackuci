@@ -8,7 +8,7 @@ using ppatierno.AzureSBLite;
 using ppatierno.AzureSBLite.Messaging;
 using Amqp;
 using System.Threading;
-
+using System.Diagnostics;
 
 namespace SpeechAndTTS
 {
@@ -23,18 +23,23 @@ namespace SpeechAndTTS
         //Send the contents to the service bus's topic
         public void sendSBMessageToTopic(string content, string topic)
         {
-
-            ServiceBusConnectionStringBuilder builder = new ServiceBusConnectionStringBuilder(SB_CONNECTION_STRING);
-            builder.TransportType = TransportType.Amqp;
-            MessagingFactory factory = MessagingFactory.CreateFromConnectionString(SB_CONNECTION_STRING);
-            TopicClient client = factory.CreateTopicClient(topic);
-            MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            BrokeredMessage message = new BrokeredMessage(stream);
-            message.Properties["time"] = DateTime.UtcNow;
-            client.Send(message);
-            client.Close();
-            factory.Close();
-
+            try
+            {
+                ServiceBusConnectionStringBuilder builder = new ServiceBusConnectionStringBuilder(SB_CONNECTION_STRING);
+                builder.TransportType = TransportType.Amqp;
+                MessagingFactory factory = MessagingFactory.CreateFromConnectionString(SB_CONNECTION_STRING);
+                TopicClient client = factory.CreateTopicClient(topic);
+                MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+                BrokeredMessage message = new BrokeredMessage(stream);
+                message.Properties["time"] = DateTime.UtcNow;
+                client.Send(message);
+                client.Close();
+                factory.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR : " + ex.ToString() );
+            }
 
         }
 
@@ -54,21 +59,27 @@ namespace SpeechAndTTS
         public void SubscriptionReceiver(object obj)
         {
 
-            azureConnector.TopicSub topicsub = (azureConnector.TopicSub)obj;
+            try {
+                azureConnector.TopicSub topicsub = (azureConnector.TopicSub)obj;
 
-            ServiceBusConnectionStringBuilder builder = new ServiceBusConnectionStringBuilder(SB_CONNECTION_STRING);
-            builder.TransportType = TransportType.Amqp;
-            MessagingFactory factory = MessagingFactory.CreateFromConnectionString(SB_CONNECTION_STRING);
-            SubscriptionClient client = factory.CreateSubscriptionClient(topicsub.Topic, topicsub.Sub);
-            string msg;
-            while (true)
-            {
-                BrokeredMessage request = client.Receive();
-                if (request.Properties != null)
+                ServiceBusConnectionStringBuilder builder = new ServiceBusConnectionStringBuilder(SB_CONNECTION_STRING);
+                builder.TransportType = TransportType.Amqp;
+                MessagingFactory factory = MessagingFactory.CreateFromConnectionString(SB_CONNECTION_STRING);
+                SubscriptionClient client = factory.CreateSubscriptionClient(topicsub.Topic, topicsub.Sub);
+                string msg;
+                while (true)
                 {
-                   msg = decodeMsg(request);
+                    BrokeredMessage request = client.Receive();
+                    if (request != null && request.Properties != null)
+                    {
+                        msg = decodeMsg(request);
+                    }
+                    request.Complete();
                 }
-                request.Complete();
+            } 
+            catch(Exception ex)
+            {
+                Debug.WriteLine("ERROR : " + ex.ToString());
             }
 
         }
