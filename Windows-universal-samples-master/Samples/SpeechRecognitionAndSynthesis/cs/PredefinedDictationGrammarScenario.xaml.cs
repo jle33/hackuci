@@ -22,6 +22,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 using Windows.Foundation;
+using System.Threading.Tasks;
+using Windows.Media.SpeechRecognition;
+using Windows.Storage;
 
 namespace SpeechAndTTS
 {
@@ -45,6 +48,12 @@ namespace SpeechAndTTS
             InitializeComponent();
         }
 
+        private async Task InstallVoiceCommandsAsync()
+        {
+            var storageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///CommandWordsSpeech.xml"));
+            await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
+        }
+            
         /// <summary>
         /// When activating the scenario, ensure we have permission from the user to access their microphone, and
         /// provide an appropriate path for the user to enable access to the microphone if they haven't
@@ -53,6 +62,11 @@ namespace SpeechAndTTS
         /// <param name="e">The navigation event details</param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                await InstallVoiceCommandsAsync();
+            }
+
             // Save the UI thread dispatcher to allow speech status messages to be shown on the UI.
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
 
