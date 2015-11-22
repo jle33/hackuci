@@ -247,6 +247,9 @@
     <Content Include="..\shared\SRGS\zh-Hans-CN\SRGSColors.xml">
       <Link>SRGS\zh-Hans-CN\SRGSColors.xml</Link>
     </Content>
+    <Content Include="CommandWordsSpeech.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="..\shared\Strings\en-US\LocalizationSpeechResources.resw">
