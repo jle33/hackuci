@@ -22,16 +22,16 @@ namespace SDKTemplate
 
         List<Scenario> scenarios = new List<Scenario>
         {
-            new Scenario() { Title="Synthesize Text", ClassType=typeof(SynthesizeTextScenario)},
-            new Scenario() { Title="Synthesize SSML", ClassType=typeof(SynthesizeSSMLScenario)},
+           // new Scenario() { Title="Synthesize Text", ClassType=typeof(SynthesizeTextScenario)},
+           // new Scenario() { Title="Synthesize SSML", ClassType=typeof(SynthesizeSSMLScenario)},
             new Scenario() { Title="Predefined Dictation Grammar", ClassType=typeof(PredefinedDictationGrammarScenario)},
-            new Scenario() { Title="Predefined WebSearch Grammar", ClassType=typeof(PredefinedWebSearchGrammarScenario)},
-            new Scenario() { Title="Custom List Constraint", ClassType=typeof(ListConstraintScenario)},
-            new Scenario() { Title="Custom SRGS Constraint", ClassType=typeof(SRGSConstraintScenario)},
-            new Scenario() { Title="Continuous Dictation", ClassType=typeof(ContinuousDictationScenario)},
-            new Scenario() { Title="Continuous List Commands", ClassType=typeof(ContinuousRecoListGrammarScenario)},
-            new Scenario() { Title="Continuous SRGS Commands", ClassType=typeof(ContinuousRecoSRGSConstraintScenario)},
-            new Scenario() { Title="PauseAsync to Change Grammar", ClassType=typeof(PauseAsyncScenario)}
+           // new Scenario() { Title="Predefined WebSearch Grammar", ClassType=typeof(PredefinedWebSearchGrammarScenario)},
+           // new Scenario() { Title="Custom List Constraint", ClassType=typeof(ListConstraintScenario)},
+          //  new Scenario() { Title="Custom SRGS Constraint", ClassType=typeof(SRGSConstraintScenario)},
+          //  new Scenario() { Title="Continuous Dictation", ClassType=typeof(ContinuousDictationScenario)},
+          //  new Scenario() { Title="Continuous List Commands", ClassType=typeof(ContinuousRecoListGrammarScenario)},
+          //  new Scenario() { Title="Continuous SRGS Commands", ClassType=typeof(ContinuousRecoSRGSConstraintScenario)},
+          //  new Scenario() { Title="PauseAsync to Change Grammar", ClassType=typeof(PauseAsyncScenario)}
         };
     }
 
