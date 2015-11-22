@@ -312,7 +312,8 @@ namespace SpeechAndTTS
                     azureConnector conn = new azureConnector();
                     heardYouSayTextBlock.Visibility = resultTextBlock.Visibility = Visibility.Visible;
                     resultTextBlock.Text = speechRecognitionResult.Text;
-                
+
+
                     switch (resultTextBlock.Text)
                     {
                         case "I would like a burger.":

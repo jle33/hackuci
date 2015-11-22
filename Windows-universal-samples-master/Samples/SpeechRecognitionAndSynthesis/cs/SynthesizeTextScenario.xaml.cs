@@ -17,6 +17,7 @@ using Windows.Media.SpeechSynthesis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using System.Threading;
 
 namespace SpeechAndTTS
 {
@@ -25,6 +26,21 @@ namespace SpeechAndTTS
         private SpeechSynthesizer synthesizer;
         private ResourceContext speechContext;
         private ResourceMap speechResourceMap;
+        azureConnector conn;
+       /* string dfa = "";
+        class msgQueue { public string msg; };
+
+        private async void dowork(object obj)
+        {
+            while (true)
+            {
+                string temp = conn.getMessage();
+                if (temp != null)
+                {
+                    textToSynthesize.Text = temp;
+                }
+            }
+        } */
 
         public SynthesizeTextScenario()
         {
@@ -36,8 +52,17 @@ namespace SpeechAndTTS
 
             speechResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("LocalizationTTSResources");
 
+            
+            conn = new azureConnector();
+            conn.sendSBMessageToTopic("Hello hello", "ordermeal");
+            conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
+            conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");
+
+            //workerThread msgChecker = new workerThread(this.dowork);
+            //msgChecker.Start(new msgQueue() {msg = ""});
             InitializeListboxVoiceChooser();
         }
+
 
         /// <summary>
         /// This is invoked when the user clicks on the speak/stop button.
@@ -54,41 +79,49 @@ namespace SpeechAndTTS
             }
             else
             {
-                string text = textToSynthesize.Text;
-                if (!String.IsNullOrEmpty(text))
+                
+                string text = conn.getMessage();
+                if (text != null)
                 {
-                    // Change the button label. You could also just disable the button if you don't want any user control.
-                    btnSpeak.Content = "Stop";
+                    textToSynthesize.Text = text;
+                    if (!String.IsNullOrEmpty(text))
+                    {
+                        // Change the button label. You could also just disable the button if you don't want any user control.
+                        btnSpeak.Content = "Stop";
 
-                    try
-                    {
-                        // Create a stream from the text. This will be played using a media element.
-                        SpeechSynthesisStream synthesisStream = await synthesizer.SynthesizeTextToStreamAsync(text);
-
-                        // Set the source and start playing the synthesized audio stream.
-                        media.AutoPlay = true;
-                        media.SetSource(synthesisStream, synthesisStream.ContentType);
-                        media.Play();
+                        try
+                        {
+                            // Create a stream from the text. This will be played using a media element.
+                            SpeechSynthesisStream synthesisStream = await synthesizer.SynthesizeTextToStreamAsync(text);
+                            
+                            // Set the source and start playing the synthesized audio stream.
+                            media.AutoPlay = true;
+                            media.SetSource(synthesisStream, synthesisStream.ContentType);
+                            media.Play();
+                        }
+                        catch (System.IO.FileNotFoundException)
+                        {
+                            // If media player components are unavailable, (eg, using a N SKU of windows), we won't
+                            // be able to start media playback. Handle this gracefully
+                            btnSpeak.Content = "Speak";
+                            btnSpeak.IsEnabled = false;
+                            textToSynthesize.IsEnabled = false;
+                            listboxVoiceChooser.IsEnabled = false;
+                            var messageDialog = new Windows.UI.Popups.MessageDialog("Media player components unavailable");
+                            await messageDialog.ShowAsync();
+                        }
+                        catch (Exception)
+                        {
+                            // If the text is unable to be synthesized, throw an error message to the user.
+                            btnSpeak.Content = "Speak";
+                            media.AutoPlay = false;
+                            var messageDialog = new Windows.UI.Popups.MessageDialog("Unable to synthesize text");
+                            await messageDialog.ShowAsync();
+                        }
                     }
-                    catch (System.IO.FileNotFoundException)
-                    {
-                        // If media player components are unavailable, (eg, using a N SKU of windows), we won't
-                        // be able to start media playback. Handle this gracefully
-                        btnSpeak.Content = "Speak";
-                        btnSpeak.IsEnabled = false;
-                        textToSynthesize.IsEnabled = false;
-                        listboxVoiceChooser.IsEnabled = false;
-                        var messageDialog = new Windows.UI.Popups.MessageDialog("Media player components unavailable");
-                        await messageDialog.ShowAsync();
-                    }
-                    catch (Exception)
-                    {
-                        // If the text is unable to be synthesized, throw an error message to the user.
-                        btnSpeak.Content = "Speak";
-                        media.AutoPlay = false;
-                        var messageDialog = new Windows.UI.Popups.MessageDialog("Unable to synthesize text");
-                        await messageDialog.ShowAsync();
-                    }
+                } else
+                {
+                    textToSynthesize.Text = "Nothing Recieved";
                 }
             }
         }

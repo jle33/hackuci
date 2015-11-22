@@ -49,7 +49,7 @@
                              MaxWidth="515"
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
-                             Text="The quick red fox jumped over the lazy brown dog"
+                             Text="Nothing Recieved"
                              FontSize="16"
                              HorizontalAlignment="Left"/>
                 </StackPanel>
