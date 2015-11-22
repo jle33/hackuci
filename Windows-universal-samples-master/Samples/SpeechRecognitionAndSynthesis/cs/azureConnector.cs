@@ -23,7 +23,6 @@ namespace SpeechAndTTS
         //Send the contents to the service bus's topic
         public void sendSBMessageToTopic(string content, string topic)
         {
-
             ServiceBusConnectionStringBuilder builder = new ServiceBusConnectionStringBuilder(SB_CONNECTION_STRING);
             builder.TransportType = TransportType.Amqp;
             MessagingFactory factory = MessagingFactory.CreateFromConnectionString(SB_CONNECTION_STRING);
@@ -34,11 +33,11 @@ namespace SpeechAndTTS
             client.Send(message);
             client.Close();
             factory.Close();
-
-
         }
 
-
+/// <summary>
+/// ////////////////////
+/// </summary>
         class TopicSub { public string Topic; public string Sub; }
 
         //Still confused with this function, source from 
@@ -64,7 +63,7 @@ namespace SpeechAndTTS
             while (true)
             {
                 BrokeredMessage request = client.Receive();
-                if (request.Properties != null)
+                if (request.Properties != null && request != null)
                 {
                    msg = decodeMsg(request);
                 }
@@ -82,6 +81,7 @@ namespace SpeechAndTTS
             int charCount = utf8decoder.GetCharCount(buffer, 0, buffer.Length);
             msg = new Char[charCount];
             utf8decoder.GetChars(buffer, 0, buffer.Length, msg, 0);
+            
             return new string(msg);
         }
 
