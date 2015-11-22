@@ -33,7 +33,7 @@
                 </TextBlock>
             </StackPanel>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto" Margin="0,110,0,280" Grid.RowSpan="2">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Language: " Margin="10,0,0,0" VerticalAlignment="Center"/>
@@ -63,6 +63,7 @@
             <!-- Status Block for providing messages to the user.  Use the
              NotifyUser() method to populate the message -->
             <TextBlock x:Name="StatusBlock" Grid.Row="2" Margin="12, 10, 12, 10" Visibility="Collapsed"/>
+            <TextBox x:Name="outBox" HorizontalAlignment="Left" Margin="111,436.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Page>

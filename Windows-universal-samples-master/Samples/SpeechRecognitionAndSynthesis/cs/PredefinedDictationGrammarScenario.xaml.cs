@@ -326,6 +326,10 @@ namespace SpeechAndTTS
                             conn.sendSBMessageToTopic("An order of one big fries has been placed.", "ordermeal");
                             break;
                     }
+
+                    outBox.Text = resultTextBlock.Text;
+                    //conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");
+                    //outBox.Text = conn.getMessage();
                 }
                 else
                 {
