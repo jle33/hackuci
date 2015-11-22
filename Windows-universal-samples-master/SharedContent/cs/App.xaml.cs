@@ -10,8 +10,10 @@
 //*********************************************************
 
 using System;
+using SpeechAndTTS;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Media.SpeechRecognition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -33,6 +35,7 @@ namespace SDKTemplate
         {
             this.InitializeComponent();
             this.Construct();
+
         }
 
         /// <summary>
@@ -113,6 +116,32 @@ namespace SDKTemplate
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            azureConnector conn = new azureConnector();
+            base.OnActivated(args);
+            if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                var commandArgs = args as VoiceCommandActivatedEventArgs;
+                if (commandArgs != null)
+                {
+                    SpeechRecognitionResult speechRecognitionResult = commandArgs.Result;
+                    var voiceCommandName = speechRecognitionResult.RulePath[0];
+
+                    switch (voiceCommandName)
+                    {
+                        case "OrderBurger":
+                            conn.sendSBMessageToTopic("Ordered one burger", "ordermeal");
+                            break;
+                        case "OrderSoda":
+                            conn.sendSBMessageToTopic("Ordered one soda", "ordermeal");
+                            break;
+                    }
+                }
+            }
+            Window.Current.Activate();
         }
 
         // Add any application contructor code in here.
