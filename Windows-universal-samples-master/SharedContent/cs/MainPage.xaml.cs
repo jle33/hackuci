@@ -38,7 +38,7 @@ namespace SDKTemplate
             Current = this;
             SampleTitle.Text = FEATURE_NAME;
             azureConnector conn = new azureConnector();
-            conn.sendSBMessageToTopic("Hello from hack uci", "ordermeal");
+            conn.sendSBMessageToTopic("Hello test did I", "ordermeal");
             conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");
         }
 
