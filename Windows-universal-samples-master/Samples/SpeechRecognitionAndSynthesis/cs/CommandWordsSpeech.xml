@@ -1,30 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="HomeControlCommandSet_en-us">
+    <CommandPrefix>HomeControl</CommandPrefix>
+    <Example>Control alarm, temperature, light and others</Example>
 
-<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
-  <CommandSet xml:lang="en-US">
-    <CommandPrefix>Contoso Rodeo</CommandPrefix>
-    <Example> play a new game </Example>
-
-    <Command Name="OrderBurger">
-      <Example> play a new game </Example>
-      <ListenFor> Burger </ListenFor>
-      <Feedback> Ordering burger </Feedback>
+    <Command Name="Activate_Alarm">
+      <Example>Version Number</Example>
+      <ListenFor>[State] [your] Version Number [please]</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">[State] [your] Version Number</ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Cannot comply Activate {builtin:AppName} alarm</ListenFor>
+      <Feedback>Activating alarm</Feedback>
       <Navigate />
     </Command>
 
-    <Command Name="OrderSoda">
-      <Example> play a new game </Example>
-      <ListenFor> Soda </ListenFor>
-      <Feedback> Ordering a soda </Feedback>
+
+    
+    
+
+    <Command Name="Change_Temperature">
+      <Example>Change temperature to 25º degrees</Example>
+      <ListenFor>Change temperature to {temperature} degrees</ListenFor>
+      <Feedback>Changing temperature to {temperature} degrees</Feedback>
       <Navigate />
     </Command>
 
-    <Command Name="OrderFries">
-      <Example> play a new game </Example>
-      <ListenFor> Fries </ListenFor>
-      <Feedback> Ordering some fries </Feedback>
+    <Command Name="Change_Light_Color">
+      <Example>Change light color to yellow</Example>
+      <ListenFor>Change light color to {colors}</ListenFor>
+      <Feedback>Changing light color to {colors}</Feedback>
       <Navigate />
     </Command>
-	
+
+    <PhraseList Label="colors">
+      <Item>yellow</Item>
+      <Item>green</Item>
+      <Item>red</Item>
+    </PhraseList>
+
+    <PhraseTopic Label="temperature">
+    </PhraseTopic>
+
   </CommandSet>
 </VoiceCommands>

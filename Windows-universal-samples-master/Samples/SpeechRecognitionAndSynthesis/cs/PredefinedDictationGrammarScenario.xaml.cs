@@ -73,6 +73,8 @@ namespace SpeechAndTTS
             bool permissionGained = await AudioCapturePermissions.RequestMicrophonePermission();
             if (permissionGained)
             {
+                await InstallVoiceCommandsAsync();/////////////////////
+
                 // Enable the recognition buttons.
                 btnRecognizeWithUI.IsEnabled = true;
                 btnRecognizeWithoutUI.IsEnabled = true;
