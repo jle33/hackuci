@@ -19,7 +19,8 @@ namespace SpeechAndTTS
         // private string SUBSCRIPTION = "";
         // private string SHARED_ACCESS_KEY_NAME = "RootManageSharedAccessKey";
         // private string SHARED_ACCESS_KEY = "ELXXNeA+zNdYw5qVwe6qj8WqrX4AIhjSDW7s0vogPcM=";
-
+        private static Mutex q_m = new Mutex();
+        private static Queue<string> msg_q = new Queue<string>();
         //Send the contents to the service bus's topic
         public void sendSBMessageToTopic(string content, string topic)
         {
@@ -56,7 +57,7 @@ namespace SpeechAndTTS
         }
 
         //Receive from a specfic topic's subscription
-        public void SubscriptionReceiver(object obj)
+        private void SubscriptionReceiver(object obj)
         {
 
             try {
@@ -73,6 +74,7 @@ namespace SpeechAndTTS
                     if (request != null && request.Properties != null)
                     {
                         msg = decodeMsg(request);
+                        recieveMessage(msg);
                     }
                     request.Complete();
                 }
@@ -94,6 +96,28 @@ namespace SpeechAndTTS
             msg = new Char[charCount];
             utf8decoder.GetChars(buffer, 0, buffer.Length, msg, 0);
             return new string(msg);
+        }
+
+        public string getMessage()
+        {
+            string msg;
+            q_m.WaitOne();
+            if (msg_q.Count != 0)
+            {
+                msg = msg_q.Dequeue();
+            } else
+            {
+                msg = null;
+            }
+            q_m.ReleaseMutex();
+            return msg;
+        }
+
+        private void recieveMessage(string msg)
+        {
+            q_m.WaitOne();
+            msg_q.Enqueue(msg);
+            q_m.ReleaseMutex();
         }
 
         /*

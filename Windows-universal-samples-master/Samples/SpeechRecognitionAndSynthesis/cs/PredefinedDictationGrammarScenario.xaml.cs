@@ -314,13 +314,18 @@ namespace SpeechAndTTS
                     azureConnector conn = new azureConnector();
                     heardYouSayTextBlock.Visibility = resultTextBlock.Visibility = Visibility.Visible;
                     resultTextBlock.Text = speechRecognitionResult.Text;
+
+
                     switch (resultTextBlock.Text)
                     {
-                        case "OrderBurger":
-                            conn.sendSBMessageToTopic("Ordered one burger", "ordermeal");
+                        case "I would like a burger.":
+                            conn.sendSBMessageToTopic("An order of one burger has been placed.", "ordermeal");
                             break;
-                        case "OrderSoda":
-                            conn.sendSBMessageToTopic("Ordered one soda", "ordermeal");
+                        case "I would like a soda.":
+                            conn.sendSBMessageToTopic("An order of one soda has been placed.", "ordermeal");
+                            break;
+                        case "And a big order of fries.":
+                            conn.sendSBMessageToTopic("An order of one big fries has been placed.", "ordermeal");
                             break;
                     }
                 }
