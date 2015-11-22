@@ -98,9 +98,6 @@
     </Compile>
     <Compile Include="AudioCapturePermissions.cs" />
     <Compile Include="azureConnector.cs" />
-    <Compile Include="ContinuousDictationScenario.xaml.cs">
-      <DependentUpon>ContinuousDictationScenario.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ContinuousRecognitionListGrammarScenario.xaml.cs">
       <DependentUpon>ContinuousRecognitionListGrammarScenario.xaml</DependentUpon>
     </Compile>
@@ -149,10 +146,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ContinuousDictationScenario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ContinuousRecognitionListGrammarScenario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

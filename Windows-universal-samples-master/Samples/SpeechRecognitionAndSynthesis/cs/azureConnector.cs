@@ -75,8 +75,9 @@ namespace SpeechAndTTS
                     {
                         msg = decodeMsg(request);
                         recieveMessage(msg);
+                        request.Complete();
                     }
-                    request.Complete();
+                    
                 }
             } 
             catch(Exception ex)

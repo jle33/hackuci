@@ -54,8 +54,11 @@ namespace SpeechAndTTS
 
             
             conn = new azureConnector();
-            conn.sendSBMessageToTopic("Hello hello", "ordermeal");
+            //conn.sendSBMessageToTopic("Hello hello", "ordermeal");
+           /* conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
             conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
+            conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
+            conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");*/
             conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");
 
             //workerThread msgChecker = new workerThread(this.dowork);
