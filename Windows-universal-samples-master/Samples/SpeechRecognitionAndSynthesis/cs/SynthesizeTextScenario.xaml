@@ -27,16 +27,14 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Margin="0,0,0,10">
-                <TextBlock Text="Description:" Style="{StaticResource SampleHeaderTextStyle}"/>
-                <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" TextWrapping="Wrap">
-                    This sample showcases basic speech synthesis using WinRT APIs to convert text to speech.
-                </TextBlock>
+                <TextBlock Text="BETA BUILD 1.0" Style="{StaticResource SampleHeaderTextStyle}"/>
+                <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" TextWrapping="Wrap" Text="This window lets you get the orders from the customers using your drive-in or similiar."/>
             </StackPanel>
 
             <ScrollViewer Grid.Row="1" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Button x:Name="btnSpeak" Content="Speak"
+                        <Button x:Name="btnSpeak" Content="Get next order"
                                 ToolTipService.ToolTip="Text will be played"
                                 Margin="0,0,10,0" Click="Speak_Click"/>
                         <ComboBox x:Name="listboxVoiceChooser"
@@ -49,9 +47,9 @@
                              MaxWidth="515"
                              TextWrapping="Wrap"
                              AcceptsReturn="True"
-                             Text="Nothing Recieved"
+                             Text="No order yet"
                              FontSize="16"
-                             HorizontalAlignment="Left"/>
+                             HorizontalAlignment="Left" TextChanged="textToSynthesize_TextChanged"/>
                 </StackPanel>
             </ScrollViewer>
 

@@ -240,6 +240,7 @@
     <Content Include="..\shared\SRGS\zh-Hans-CN\SRGSColors.xml">
       <Link>SRGS\zh-Hans-CN\SRGSColors.xml</Link>
     </Content>
+    <Content Include="Assets\logo2015.png" />
     <Content Include="CommandWordsSpeech.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

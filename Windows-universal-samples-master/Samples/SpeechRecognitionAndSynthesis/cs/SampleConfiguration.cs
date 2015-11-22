@@ -18,13 +18,13 @@ namespace SDKTemplate
 {
     public partial class MainPage : Page
     {
-        public const string FEATURE_NAME = "Speech Recognition\nand TTS";
+        public const string FEATURE_NAME = "Speech Recognition\nwith azure cloud";
 
         List<Scenario> scenarios = new List<Scenario>
         {
-            new Scenario() { Title="Synthesize Text", ClassType=typeof(SynthesizeTextScenario)},
+            //new Scenario() { Title="See orders", ClassType=typeof(SynthesizeTextScenario)},
             //new Scenario() { Title="Synthesize SSML", ClassType=typeof(SynthesizeSSMLScenario)},
-            //new Scenario() { Title="Predefined Dictation Grammar", ClassType=typeof(PredefinedDictationGrammarScenario)},
+            new Scenario() { Title="Speech order", ClassType=typeof(PredefinedDictationGrammarScenario)},
             //new Scenario() { Title="Predefined WebSearch Grammar", ClassType=typeof(PredefinedWebSearchGrammarScenario)},
             //new Scenario() { Title="Custom List Constraint", ClassType=typeof(ListConstraintScenario)},
             //new Scenario() { Title="Custom SRGS Constraint", ClassType=typeof(SRGSConstraintScenario)},
