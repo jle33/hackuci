@@ -26,21 +26,21 @@ namespace SpeechAndTTS
         private SpeechSynthesizer synthesizer;
         private ResourceContext speechContext;
         private ResourceMap speechResourceMap;
-        azureConnector conn;
-       /* string dfa = "";
-        class msgQueue { public string msg; };
+        private azureConnector conn = new azureConnector();
+        /* string dfa = "";
+         class msgQueue { public string msg; };
 
-        private async void dowork(object obj)
-        {
-            while (true)
-            {
-                string temp = conn.getMessage();
-                if (temp != null)
-                {
-                    textToSynthesize.Text = temp;
-                }
-            }
-        } */
+         private async void dowork(object obj)
+         {
+             while (true)
+             {
+                 string temp = conn.getMessage();
+                 if (temp != null)
+                 {
+                     textToSynthesize.Text = temp;
+                 }
+             }
+         } */
 
         public SynthesizeTextScenario()
         {
@@ -52,14 +52,14 @@ namespace SpeechAndTTS
 
             speechResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("LocalizationTTSResources");
 
-            
-            conn = new azureConnector();
-            //conn.sendSBMessageToTopic("Hello hello", "ordermeal");
-           /* conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
-            conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
-            conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
-            conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");*/
             conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");
+
+            //conn.sendSBMessageToTopic("Hello hello", "ordermeal");
+            /* conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
+             conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
+             conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");
+             conn.sendSBMessageToTopic("Oh Burger Burger", "ordermeal");*/
+
 
             //workerThread msgChecker = new workerThread(this.dowork);
             //msgChecker.Start(new msgQueue() {msg = ""});
