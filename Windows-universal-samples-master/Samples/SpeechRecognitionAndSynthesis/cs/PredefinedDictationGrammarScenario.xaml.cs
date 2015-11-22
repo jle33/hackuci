@@ -309,8 +309,20 @@ namespace SpeechAndTTS
                 // If successful, display the recognition result.
                 if (speechRecognitionResult.Status == SpeechRecognitionResultStatus.Success)
                 {
+                    azureConnector conn = new azureConnector();
                     heardYouSayTextBlock.Visibility = resultTextBlock.Visibility = Visibility.Visible;
                     resultTextBlock.Text = speechRecognitionResult.Text;
+
+
+                    switch (resultTextBlock.Text)
+                    {
+                        case "OrderBurger":
+                            conn.sendSBMessageToTopic("Ordered one burger", "ordermeal");
+                            break;
+                        case "OrderSoda":
+                            conn.sendSBMessageToTopic("Ordered one soda", "ordermeal");
+                            break;
+                    }
                 }
                 else
                 {

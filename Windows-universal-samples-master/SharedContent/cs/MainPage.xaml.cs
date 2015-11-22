@@ -37,9 +37,9 @@ namespace SDKTemplate
             // in order to call methods that are in this class.
             Current = this;
             SampleTitle.Text = FEATURE_NAME;
-            azureConnector conn = new azureConnector();
-            conn.sendSBMessageToTopic("Hello test did I", "ordermeal");
-            conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");
+           /* azureConnector conn = new azureConnector();
+            conn.sendSBMessageToTopic("Hello from hack uci", "ordermeal");
+            conn.runSubscriptionReceiver("ordermeal", "orderMealSubscription");*/
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
